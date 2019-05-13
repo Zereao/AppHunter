@@ -49,7 +49,7 @@ public interface AppInfoDAO extends JpaRepository<AppInfo, Long> {
             "  `app_id` int(11) DEFAULT NULL COMMENT '对应 app 表中的ID'," +
             "  `name` varchar(50) DEFAULT NULL COMMENT 'APP名称'," +
             "  `price` varchar(10) DEFAULT NULL COMMENT 'APP价格'," +
-            "  `language` varchar(50) DEFAULT NULL COMMENT 'APP支持的语言类型'," +
+            "  `language` varchar(200) DEFAULT NULL COMMENT 'APP支持的语言类型'," +
             "  `version` varchar(10) DEFAULT NULL COMMENT 'APP最新的版本'," +
             "  `url` varchar(100) DEFAULT NULL COMMENT 'APP商店页面地址'," +
             "  `create_time` datetime DEFAULT NULL COMMENT '创建时间'," +

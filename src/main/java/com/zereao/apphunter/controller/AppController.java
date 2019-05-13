@@ -21,8 +21,8 @@ public class AppController {
     private AppInfoService appInfoService;
 
     @PostMapping("add")
-    public ResponseEntity addApp(@RequestBody AppAddDTO addDTO) {
-        appInfoService.addApp(addDTO.getUrl());
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> addApp(@RequestBody AppAddDTO addDTO) {
+        addDTO.getUrl().parallelStream().forEach(url -> appInfoService.addApp(url));
+        return ResponseEntity.ok("添加成功！");
     }
 }

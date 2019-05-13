@@ -8,11 +8,11 @@ Content-Type: application/json
 }
 
 ###
-POST http://47.99.200.185:8080/app/add
+POST http://47.99.200.185/app/add
 Content-Type: application/json
 
 {
-  "url": "https://itunes.apple.com/cn/app/%E5%86%B0%E5%86%BB%E7%AC%A6%E6%96%87/id1458310065?mt=8"
+  "url": "https://itunes.apple.com/cn/app/pixelmator-pro/id1289583905?mt=12"
 }
 
 ###
