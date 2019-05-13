@@ -1,0 +1,6 @@
+
+###
+GET http://localhost:8080/sys/execDmlSQL
+Content-Type: application/json
+
+###

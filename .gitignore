@@ -1,0 +1,6 @@
+/target/
+/logs/
+
+### IntelliJ IDEA ###
+.idea
+*.iml

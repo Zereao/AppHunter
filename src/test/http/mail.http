@@ -1,0 +1,6 @@
+
+###
+GET http://localhost:8080/mail/send
+Content-Type: application/json
+
+###
