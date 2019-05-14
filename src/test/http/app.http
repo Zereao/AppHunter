@@ -12,7 +12,9 @@ POST http://47.99.200.185/app/add
 Content-Type: application/json
 
 {
-  "url": "https://itunes.apple.com/cn/app/pixelmator-pro/id1289583905?mt=12"
+  "url": [
+    "https://itunes.apple.com/cn/app/bandizip-%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%BC%A9/id1265704574?mt=12"
+  ]
 }
 
 ###

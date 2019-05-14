@@ -5,9 +5,9 @@ import com.zereao.apphunter.common.tools.OkHttp3Utils;
 import com.zereao.apphunter.common.tools.ThreadPoolUtils;
 import com.zereao.apphunter.dao.AppDAO;
 import com.zereao.apphunter.dao.AppInfoDAO;
-import com.zereao.apphunter.pojo.vo.AppPriceInfoVO;
 import com.zereao.apphunter.pojo.entity.App;
 import com.zereao.apphunter.pojo.entity.AppInfo;
+import com.zereao.apphunter.pojo.vo.AppPriceInfoVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -167,7 +167,7 @@ public class AppInfoService {
 
         @Override
         public Map<String, List<AppInfo>> call() throws Exception {
-            Map<String, List<AppInfo>> appInfoMap = new ConcurrentHashMap<>(this.appList.size());
+            Map<String, List<AppInfo>> appInfoMap = new ConcurrentHashMap<>(16);
             this.appList.parallelStream().forEach(app -> {
                 Long appId = app.getId();
                 List<AppInfo> appInfoList = appInfoDAO.findByAppIdOrderByCreateTimeDesc(appId);
