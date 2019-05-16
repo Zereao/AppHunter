@@ -212,6 +212,6 @@ public class AppInfoService {
      * @return 价格的数字部分，例如 448.00
      */
     private double getPriceNumber(String price) {
-        return Double.parseDouble(price.replaceAll("[$¥]", ""));
+        return Double.parseDouble(price.replaceAll("[$¥,]", ""));
     }
 }

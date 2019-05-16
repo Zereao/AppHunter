@@ -51,11 +51,11 @@ public class OkHttp3Utils {
         Instance() {
             client = new OkHttpClient.Builder()
                     // 设置连接超时
-                    .callTimeout(5, TimeUnit.SECONDS)
+                    .callTimeout(10, TimeUnit.SECONDS)
                     // 设置读超时
-                    .readTimeout(5, TimeUnit.SECONDS)
+                    .readTimeout(10, TimeUnit.SECONDS)
                     // 设置写超时
-                    .writeTimeout(5, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
                     // 是否自动重连
                     .retryOnConnectionFailure(true)
                     // 设置连接池

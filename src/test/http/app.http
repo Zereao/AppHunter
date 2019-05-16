@@ -13,7 +13,14 @@ Content-Type: application/json
 
 {
   "url": [
-    "https://itunes.apple.com/cn/app/bandizip-%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%BC%A9/id1265704574?mt=12"
+    "https://itunes.apple.com/cn/app/%E7%BA%AA%E5%BF%B5%E7%A2%91%E8%B0%B72/id1238778050?mt=8",
+    "https://itunes.apple.com/cn/app/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E4%B9%8B%E5%9C%B0/id1181212221?mt=8",
+    "https://itunes.apple.com/cn/app/%E5%9B%9E%E5%BF%86%E4%B9%8B%E6%97%85/id1236463633?mt=8",
+    "https://itunes.apple.com/cn/app/%E5%8F%8C%E5%AD%90-gemini/id1159266744?mt=8",
+    "https://itunes.apple.com/cn/app/mushroom-11/id1193911528?mt=8",
+    "https://itunes.apple.com/cn/app/splitter-critters/id1107320261?mt=8",
+    "https://itunes.apple.com/cn/app/%E7%8E%8B%E6%9D%83-reigns/id1114127463?mt=8",
+    "https://itunes.apple.com/cn/app/steamworld-heist/id1093396572?mt=8"
   ]
 }
 
