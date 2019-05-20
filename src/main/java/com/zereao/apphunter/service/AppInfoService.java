@@ -100,6 +100,7 @@ public class AppInfoService {
     public AppInfo parseAppInfo(String url) {
         String respStr = OkHttp3Utils.doGet(url);
         if (StringUtils.isBlank(respStr)) {
+            log.error("从url = {} 获取到的数据为空！", url);
             return null;
         }
         Document respHtml = Jsoup.parse(respStr);

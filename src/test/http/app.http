@@ -25,3 +25,27 @@ Content-Type: application/json
 }
 
 ###
+GET http://47.99.200.185/app/initInfo
+Content-Type: application/json
+
+{}
+
+###
+GET http://47.99.200.185/app/flush
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:8080/app/initInfo
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:8080/app/flush
+Content-Type: application/json
+
+{}
+
+###

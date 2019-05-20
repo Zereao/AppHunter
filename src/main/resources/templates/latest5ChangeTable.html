@@ -25,11 +25,22 @@
         }
 
         .btbg1 {
+            text-align: center;
             background: #f2fbfe !important;
         }
 
         .btbg2 {
-            background: #f3f3f3 !important;
+            background: #f3007f !important;
+        }
+
+        .btbg3 {
+            background: #d0f3eb !important;
+            text-align: center
+        }
+
+        .btbg4 {
+            background: #f3e7f0 !important;
+            text-align: center
         }
 
         .biaoti {
@@ -70,62 +81,67 @@
         <td width="20%" class="btbg font-center titfont">商店地址</td>
     </tr>
 
-
-    <tr th:if="${appPriceInfoVO.downNum}>0">
-        <td class="btbg1" th:text="价格下降" th:rowspan="${appPriceInfoVO.downNum}"></td>
-        <div th:remove="tag" th:each="downPriceEntry:${appPriceInfoVO.downPriceMap}"
-             th:with="appName = ${downPriceEntry.key}, appChangeNum = ${downPriceEntry.value.size()},
-              appInfo0 = ${downPriceEntry.value.get(0)}">
-            <td class="btbg2 font-center" th:text="${appName}" th:rowspan="${appChangeNum}"></td>
-            <td class="font-center" th:text="${appInfo0.price}"></td>
-            <td class="font-center" th:text="${appInfo0.version}"></td>
-            <td class="font-center" th:text="${appInfo0.createTime}"></td>
-            <td class="font-center" th:text="${appInfo0.language}"></td>
-            <td class="font-center">
+    <!--/*@thymesVar id="appPriceInfoVO" type="com.zereao.apphunter.pojo.vo.AppPriceInfoVO"*/-->
+    <div th:remove="tag" th:each="downPriceEntry,stats:${appPriceInfoVO.downPriceMap}"
+         th:with="appName = ${downPriceEntry.key}, appChangeNum = ${downPriceEntry.value.size()},
+              appInfo0 = ${downPriceEntry.value.get(0)}, downPriceList = ${downPriceEntry.value}">
+        <tr th:if="${appPriceInfoVO.downNum}>0">
+            <td class="btbg1" th:text="价格下降" th:rowspan="${appPriceInfoVO.downNum}" th:if="${stats.first}"></td>
+            <td th:text="${appName}" th:rowspan="${appChangeNum}"
+                th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.price}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.version}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.createTime}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.language}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'">
                 <a th:href="${appInfo0.url}" target="_blank" th:text="${appInfo0.name}"></a>
             </td>
-        </div>
-    </tr>
-    <div th:remove="tag" th:each="downPriceEntry:${appPriceInfoVO.downPriceMap}">
-        <tr th:each="downPriceAppInfo,stats : ${downPriceEntry.value}" th:if="${!stats.first}">
-            <td class="font-center" th:text="${downPriceAppInfo.price}"></td>
-            <td class="font-center" th:text="${downPriceAppInfo.version}"></td>
-            <td class="font-center" th:text="${downPriceAppInfo.createTime}"></td>
-            <td class="font-center" th:text="${downPriceAppInfo.language}"></td>
-            <td class="font-center">
+        </tr>
+
+        <tr th:each="downPriceAppInfo,stat : ${downPriceList}" th:if="${!stat.first}">
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${downPriceAppInfo.price}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${downPriceAppInfo.version}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${downPriceAppInfo.createTime}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'" th:text="${downPriceAppInfo.language}"></td>
+            <td th:class="${stats.index % 2 == 0} ? 'btbg4':'btbg3'">
                 <a th:href="${downPriceAppInfo.url}" target="_blank" th:text="${downPriceAppInfo.name}"></a>
             </td>
         </tr>
     </div>
 
-    <tr th:if="${appPriceInfoVO.upNum}>0">
-        <td class="btbg1" th:text="价格上升" th:rowspan="${appPriceInfoVO.upNum}"></td>
-        <div th:remove="tag" th:each="upPriceEntry:${appPriceInfoVO.upPriceMap}"
-             th:with="appName = ${upPriceEntry.key}, appChangeNum = ${upPriceEntry.value.size()},
-              appInfo0 = ${upPriceEntry.value.get(0)}">
-            <td class="btbg2 font-center" th:text="${appName}" th:rowspan="${appChangeNum}"></td>
-            <td class="font-center" th:text="${appChangeNum > 0} ? ${appInfo0.price} : ''"></td>
-            <td class="font-center" th:text="${appChangeNum > 0} ? ${appInfo0.version} : ''"></td>
-            <td class="font-center" th:text="${appChangeNum > 0} ? ${appInfo0.createTime} : ''"></td>
-            <td class="font-center" th:text="${appChangeNum > 0} ? ${appInfo0.language} : ''"></td>
-            <td class="font-center">
+    <tr>
+        <td colspan="7" class="btbg2"></td>
+    </tr>
+
+    <div th:remove="tag" th:each="upPriceEntry,stats:${appPriceInfoVO.upPriceMap}"
+         th:with="appName = ${upPriceEntry.key}, appChangeNum = ${upPriceEntry.value.size()},
+              appInfo0 = ${upPriceEntry.value.get(0)}, upPriceList = ${upPriceEntry.value},
+              appNum = ${appPriceInfoVO.downPriceMap.size()}">
+        <tr th:if="${appPriceInfoVO.upNum}>0">
+            <td class="btbg1" th:text="价格上升" th:rowspan="${appPriceInfoVO.upNum}" th:if="${stats.first}"></td>
+            <td th:text="${appName}" th:rowspan="${appChangeNum}"
+                th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.price}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.version}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.createTime}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'" th:text="${appInfo0.language}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'">
                 <a th:href="${appInfo0.url}" target="_blank" th:text="${appInfo0.name}"></a>
             </td>
-        </div>
-    </tr>
-    <!--/*@thymesVar id="appPriceInfoVO" type="com.zereao.apphunter.pojo.vo.AppPriceInfoVO"*/-->
-    <div th:remove="tag" th:each="upPriceEntry:${appPriceInfoVO.upPriceMap}">
-        <tr th:each="upPriceAppInfo,stats : ${upPriceEntry.value}" th:if="${!stats.first}">
-            <td class="font-center" th:text="${upPriceAppInfo.price}"></td>
-            <td class="font-center" th:text="${upPriceAppInfo.version}"></td>
-            <td class="font-center" th:text="${upPriceAppInfo.createTime}"></td>
-            <td class="font-center" th:text="${upPriceAppInfo.language}"></td>
-            <td class="font-center">
+        </tr>
+        <tr th:each="upPriceAppInfo,stat : ${upPriceList}" th:if="${!stat.first}">
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'" th:text="${upPriceAppInfo.price}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'"
+                th:text="${upPriceAppInfo.version}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'"
+                th:text="${upPriceAppInfo.createTime}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'"
+                th:text="${upPriceAppInfo.language}"></td>
+            <td th:class="${(stats.index + appNum) % 2 == 0} ? 'btbg4':'btbg3'">
                 <a th:href="${upPriceAppInfo.url}" target="_blank" th:text="${upPriceAppInfo.name}"></a>
             </td>
         </tr>
     </div>
-
 </table>
 </body>
 </html>

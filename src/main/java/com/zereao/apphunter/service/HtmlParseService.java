@@ -3,6 +3,7 @@ package com.zereao.apphunter.service;
 import com.zereao.apphunter.common.builder.ContextBuilder;
 import com.zereao.apphunter.pojo.entity.AppInfo;
 import com.zereao.apphunter.pojo.vo.AppPriceInfoVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * @author Zereao
  * @version 2019/05/10 15:06
  */
+@Slf4j
 @Service
 public class HtmlParseService {
     @Resource
@@ -30,6 +32,7 @@ public class HtmlParseService {
      */
     public String parseHtml(AppPriceInfoVO appPriceInfoVO) {
         appPriceInfoVO = this.getMaxOfLimit(appPriceInfoVO, 5);
+        log.info("vo = {}", appPriceInfoVO.toString());
         Context context = new ContextBuilder().set("appPriceInfoVO", appPriceInfoVO).build();
         return templateEngine.process("latest5ChangeTable", context);
     }
@@ -43,7 +46,7 @@ public class HtmlParseService {
      */
     @SuppressWarnings("SameParameterValue")
     private AppPriceInfoVO getMaxOfLimit(AppPriceInfoVO infoVO, int limit) {
-        Map<String, List<AppInfo>> upPriceMap = infoVO.getDownPriceMap();
+        Map<String, List<AppInfo>> upPriceMap = infoVO.getUpPriceMap();
         Map<String, List<AppInfo>> upPriceMaxOfLimit = new HashMap<>(upPriceMap.size());
         Map<String, List<AppInfo>> downPriceMap = infoVO.getDownPriceMap();
         Map<String, List<AppInfo>> downPriceMaxOfLimit = new HashMap<>(downPriceMap.size());
@@ -53,7 +56,7 @@ public class HtmlParseService {
         });
         downPriceMap.forEach((appName, appInfoList) -> {
             List<AppInfo> listMaxOfLimit = appInfoList.stream().limit(limit).collect(Collectors.toList());
-            downPriceMap.put(appName, listMaxOfLimit);
+            downPriceMaxOfLimit.put(appName, listMaxOfLimit);
         });
         int upPriceNum = this.getAppNum(upPriceMaxOfLimit);
         int downPriceNum = this.getAppNum(downPriceMaxOfLimit);

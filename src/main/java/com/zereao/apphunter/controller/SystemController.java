@@ -22,8 +22,8 @@ public class SystemController {
     @Resource
     private AppInfoDAO appInfoDAO;
 
-    @Transactional
     @GetMapping("execDmlSQL")
+    @Transactional(rollbackOn = Exception.class)
     public ResponseEntity execDmlSQL() {
         appDAO.patch_V_1_0();
         appInfoDAO.patch_V_1_0();

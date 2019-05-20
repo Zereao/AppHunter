@@ -6,6 +6,7 @@ import com.zereao.apphunter.pojo.entity.App;
 import com.zereao.apphunter.pojo.entity.AppInfo;
 import com.zereao.apphunter.service.AppInfoService;
 import com.zereao.apphunter.task.FlushAppInfoTask;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @author Zereao
  * @version 2019/05/10 17:59
  */
+@Slf4j
 @RestController
 @RequestMapping("app")
 public class AppController {
@@ -41,7 +43,7 @@ public class AppController {
     @GetMapping("initInfo")
     public ResponseEntity<String> addFirstAppInfo() {
         List<App> appList = appInfoService.getAllApps();
-        appList.forEach(app -> {
+        appList.parallelStream().forEach(app -> {
             AppInfo appInfo = appInfoService.parseAppInfo(app.getUrl());
             appInfo.setAppId(app.getId());
             appInfoDAO.save(appInfo);
