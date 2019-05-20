@@ -192,6 +192,7 @@ public class AppInfoService {
             try {
                 AppInfo oldInfo = appInfoDAO.findFirstByAppIdOrderByCreateTimeDesc(this.app.getId());
                 AppInfo newInfo = parseAppInfo(this.app.getUrl());
+                newInfo.setAppId(this.app.getId());
                 double oldPrice = getPriceNumber(oldInfo.getPrice());
                 double newPrice = getPriceNumber(newInfo.getPrice());
                 if (newPrice > oldPrice) {
