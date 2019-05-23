@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class FlushAppInfoTask {
     /**
      * 每天 3点、9点、下午3点、晚上9点刷新数据
      */
+    @PostConstruct
     @Scheduled(cron = "0 0 3,9,15,21 * * ?")
     public void flushAppInfo() {
         List<App> appList = appInfoService.getAllApps();

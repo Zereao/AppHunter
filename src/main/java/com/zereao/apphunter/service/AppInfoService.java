@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
@@ -106,15 +107,27 @@ public class AppInfoService {
         Document respHtml = Jsoup.parse(respStr);
         Element sectionParent = respHtml.selectFirst("div[class*=\"animation-wrapper is-visible ember-view\"]");
         Element infoRoot = sectionParent.selectFirst("dl[class*=\"information-list information-list--app medium-columns\"]");
-        // 解析出 语言信息
-        Element languageDd = infoRoot.selectFirst("dd[data-test-app-info-languages]");
-        String language = languageDd.getElementsByTag("p").first().text();
-        // 解析出 价格信息
-        Element priceDd = infoRoot.selectFirst("dd[data-test-app-info-price]");
-        String price = priceDd.text();
+        Elements divs = infoRoot.getElementsByTag("div");
+        AppInfo info = new AppInfo();
+        divs.forEach(div -> {
+            String dtText = div.getElementsByTag("dt").first().text().trim();
+            String ddText = div.getElementsByTag("dd").first().text().trim();
+            switch (dtText) {
+                case "语言":
+                    // 解析出 语言信息
+                    info.setLanguage(ddText);
+                    break;
+                case "价格":
+                    info.setPrice(ddText);
+                    break;
+                default:
+                    break;
+            }
+        });
         // 尝试解析版本信息，可能不存在
         Element whatsNew = sectionParent.selectFirst("p[class*=\"whats-new__latest__version\"]");
         String version = Optional.ofNullable(whatsNew).map(Element::text).map(String::trim).orElse(null);
+        info.setVersion(version);
         // 从 URL 中解析出APP 名称
         Matcher matcher = APP_NAME_PATTERN.matcher(url);
         String appName = matcher.find() ? matcher.group(1).trim() : "";
@@ -123,7 +136,9 @@ public class AppInfoService {
         } catch (UnsupportedEncodingException e) {
             log.error("appName = {} URLDecode失败！", appName);
         }
-        return AppInfo.builder().language(language.trim()).name(appName).price(price.trim()).version(version).url(url).build();
+        info.setName(appName);
+        info.setUrl(url);
+        return info;
     }
 
     /**

@@ -8,8 +8,8 @@ import java.util.concurrent.*;
  */
 public class ThreadPoolUtils {
     private static ExecutorService executor = new ThreadPoolExecutor(
-            10,
-            15,
+            4,
+            5,
             60L,
             TimeUnit.SECONDS,
             new ArrayBlockingQueue<>(100),
