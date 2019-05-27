@@ -98,8 +98,7 @@ public class OkHttp3Utils {
      */
     public static String doGet(String url) {
         Request request = new Request.Builder().url(url).build();
-        try {
-            ResponseBody body = sendRequest(request);
+        try (ResponseBody body = sendRequest(request)) {
             return body == null ? null : body.string();
         } catch (IOException e) {
             log.error("请求失败！", e);
@@ -137,7 +136,6 @@ public class OkHttp3Utils {
         params.forEach((key, value) -> formBodyBuilder.add(key, String.valueOf(value)));
         Request request = new Request.Builder().url(url).post(formBodyBuilder.build()).build();
         try {
-
             ResponseBody body = sendRequest(request);
             return body == null ? null : body.string();
         } catch (IOException e) {
@@ -155,7 +153,8 @@ public class OkHttp3Utils {
      * @throws IOException IOException
      */
     private static ResponseBody sendRequest(Request request) throws IOException {
-        Response response = Instance.INSTANCE.client.newCall(request).execute();
-        return response.body();
+        try (Response response = Instance.INSTANCE.client.newCall(request).execute()) {
+            return response.body();
+        }
     }
 }
